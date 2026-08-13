@@ -664,7 +664,7 @@ function buildWhatsAppMessage(manualOnly) {
     `- [${BUSINESS_CONFIG.canvaLink}](${BUSINESS_CONFIG.canvaLink})`,
     "  ",
     "Ini details event saya:",
-    `-  Name: ${safeText(state.data.name)}`,
+    `- Name: ${safeText(state.data.name)}`,
     `- Phone number: ${safeText(state.data.phone)}`,
     `- Event type: ${safeText(state.data.eventType)}`,
     `- Event date: ${formatDate(state.data.eventDate)}`,

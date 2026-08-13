@@ -65,7 +65,7 @@ describe("frontend WhatsApp message template", () => {
         "- [https://canva.link/b0bny2khpxyc7xx](https://canva.link/b0bny2khpxyc7xx)",
         "  ",
         "Ini details event saya:",
-        "-  Name: Sarah",
+        "- Name: Sarah",
         "- Phone number: +60123456789",
         "- Event type: Sanding",
         "- Event date: 13 December 2026",
