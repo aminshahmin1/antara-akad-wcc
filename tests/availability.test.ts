@@ -50,6 +50,19 @@ describe("checkAvailability", () => {
     });
   });
 
+  it("keeps manual blocked dates unavailable even when Calendly is configured", async () => {
+    vi.stubEnv("CALENDLY_ACCESS_TOKEN", "calendly-token");
+    vi.stubEnv("CALENDLY_USER_URI", "https://api.calendly.com/users/test-user");
+    const fetchSpy = vi.fn();
+    vi.stubGlobal("fetch", fetchSpy as unknown as typeof fetch);
+
+    await expect(checkAvailability(config, "2026-12-12")).resolves.toMatchObject({
+      status: "unavailable",
+      source: "manual",
+    });
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
   it("marks the date available when Calendly returns no busy times", async () => {
     vi.stubEnv("CALENDLY_ACCESS_TOKEN", "calendly-token");
     vi.stubEnv("CALENDLY_USER_URI", "https://api.calendly.com/users/test-user");

@@ -174,6 +174,7 @@ function isBlockingEvent(event: CalendarEvent, blockingStatuses: Set<string>): b
 export async function checkAvailability(config: BusinessConfig, date: string): Promise<AvailabilityResponse> {
   if (!isIsoDate(date)) return { status: "error", date, source: "manual", reason: "Invalid date." };
   if (date < todayInMalaysia()) return { status: "unavailable", date, source: "manual", reason: "Past dates are unavailable." };
+  if (configuredBlockedDates(config).has(date)) return { status: "unavailable", date, source: "manual" };
 
   try {
     const calendlyHasBusyTime = await hasCalendlyBusyTime(date);
@@ -206,7 +207,7 @@ export async function checkAvailability(config: BusinessConfig, date: string): P
   }
 
   return {
-    status: configuredBlockedDates(config).has(date) ? "unavailable" : "available",
+    status: "available",
     date,
     source: "manual",
   };
