@@ -655,16 +655,16 @@ function buildWhatsAppMessage(manualOnly) {
   const paidAddons = selectionItems()
     .slice(1)
     .map((item) => `${item.name} - ${item.value}`);
-  const addons = paidAddons.length ? paidAddons.join("\n- ") : "N/A";
+  const addons = paidAddons.length ? paidAddons.join(", ") : "N/A";
   return [
-    "Hi awak!",
+    "Hi awak! ",
     "",
     "Terima kasih sebab berminat dengan service WCC by Antara Akad.",
     "Untuk pakej dan details service, awak boleh refer pada link di bawah:",
-    `- ${BUSINESS_CONFIG.canvaLink}`,
-    "",
+    `- [${BUSINESS_CONFIG.canvaLink}](${BUSINESS_CONFIG.canvaLink})`,
+    "  ",
     "Ini details event saya:",
-    `- Name: ${safeText(state.data.name)}`,
+    `-  Name: ${safeText(state.data.name)}`,
     `- Phone number: ${safeText(state.data.phone)}`,
     `- Event type: ${safeText(state.data.eventType)}`,
     `- Event date: ${formatDate(state.data.eventDate)}`,
@@ -677,10 +677,8 @@ function buildWhatsAppMessage(manualOnly) {
     "Pakej yang saya pilih:",
     `- ${manualOnly ? "Manual availability check" : pkg.name}`,
     `- ${pkg.price === null || manualOnly ? "Custom quotation" : formatMoney(pkg.price)}`,
-    "",
     "Add-ons:",
     `- ${manualOnly ? "N/A" : addons}`,
-    "",
     "Estimated Total:",
     `- ${manualOnly ? "To be checked manually" : formatMoney(total)} + Transportation Fee`,
   ].join("\n");

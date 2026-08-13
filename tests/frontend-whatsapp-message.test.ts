@@ -56,19 +56,33 @@ describe("frontend WhatsApp message template", () => {
     );
 
     expect(decoded).toBe(message);
-    expect(message).toContain("Hi awak!");
-    expect(message).toContain("- https://canva.link/b0bny2khpxyc7xx");
-    expect(message).toContain("- Name: Sarah");
-    expect(message).toContain("- Phone number: +60123456789");
-    expect(message).toContain("- Event type: Sanding");
-    expect(message).toContain("- Event date: 13 December 2026");
-    expect(message).toContain("- Start event time: 10:30 am");
-    expect(message).toContain("- End event time: 2:30 pm");
-    expect(message).toContain("- Makeup location: Makeup Studio");
-    expect(message).toContain("- Outdoor photoshoot location: N/A");
-    expect(message).toContain("- Event location: Dewan Melati, Shah Alam");
-    expect(message).toContain("Pakej yang saya pilih:\n- Sanding Only\n- RM240");
-    expect(message).toContain("Add-ons:\n- Customized Template - RM10\n- 1-Min Highlight Reel - RM50\n- Extra Hour × 2 - RM120");
-    expect(message).toContain("Estimated Total:\n- RM420 + Transportation Fee");
+    expect(message).toBe(
+      [
+        "Hi awak! ",
+        "",
+        "Terima kasih sebab berminat dengan service WCC by Antara Akad.",
+        "Untuk pakej dan details service, awak boleh refer pada link di bawah:",
+        "- [https://canva.link/b0bny2khpxyc7xx](https://canva.link/b0bny2khpxyc7xx)",
+        "  ",
+        "Ini details event saya:",
+        "-  Name: Sarah",
+        "- Phone number: +60123456789",
+        "- Event type: Sanding",
+        "- Event date: 13 December 2026",
+        "- Start event time: 10:30 am",
+        "- End event time: 2:30 pm",
+        "- Makeup location: Makeup Studio",
+        "- Outdoor photoshoot location: N/A",
+        "- Event location: Dewan Melati, Shah Alam",
+        "",
+        "Pakej yang saya pilih:",
+        "- Sanding Only",
+        "- RM240",
+        "Add-ons:",
+        "- Customized Template - RM10, 1-Min Highlight Reel - RM50, Extra Hour × 2 - RM120",
+        "Estimated Total:",
+        "- RM420 + Transportation Fee",
+      ].join("\n"),
+    );
   });
 });
