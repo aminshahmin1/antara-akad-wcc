@@ -88,6 +88,18 @@ const BUSINESS_CONFIG = {
 
 const STORAGE_KEY = "antara-akad-booking-state";
 
+const EMOJI = {
+  heart: "\u{1F90D}",
+  link: "\u{1F517}",
+  bride: "\u{1F470}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}",
+  phone: "\u{1F4F1}",
+  ring: "\u{1F48D}",
+  calendar: "\u{1F5D3}\u{FE0F}",
+  startTime: "\u{1F563}",
+  endTime: "\u{1F55C}",
+  pin: "\u{1F4CD}",
+};
+
 const EVENT_TO_PACKAGE = {
   Nikah: "nikah",
   Sanding: "sanding",
@@ -657,31 +669,31 @@ function buildWhatsAppMessage(manualOnly) {
     .map((item) => `${item.name} - ${item.value}`);
   const addons = paidAddons.length ? paidAddons.join("\n") : "N/A";
   return [
-    "Hi awak! 🤍",
+    `Hi awak! ${EMOJI.heart}`,
     "",
     "Terima kasih sebab berminat dengan service WCC by Antara Akad.",
     "",
     "Untuk pakej dan details service, awak boleh refer pada link di bawah:",
-    `🔗 ${BUSINESS_CONFIG.canvaLink}`,
+    `${EMOJI.link} ${BUSINESS_CONFIG.canvaLink}`,
     "",
     "Ini details event saya:",
     "",
-    `👰🏻‍♀️ Name: ${safeText(state.data.name)}`,
-    `📱 Phone number: ${safeText(state.data.phone)}`,
+    `${EMOJI.bride} Name: ${safeText(state.data.name)}`,
+    `${EMOJI.phone} Phone number: ${safeText(state.data.phone)}`,
     "",
-    `💍 Event type: ${safeText(state.data.eventType)}`,
+    `${EMOJI.ring} Event type: ${safeText(state.data.eventType)}`,
     "",
-    `🗓️ Event date: ${formatDate(state.data.eventDate)}`,
-    `🕣 Start event time: ${formatTime(state.data.startTime)}`,
-    `🕜 End event time: ${formatTime(state.data.endTime)}`,
+    `${EMOJI.calendar} Event date: ${formatDate(state.data.eventDate)}`,
+    `${EMOJI.startTime} Start event time: ${formatTime(state.data.startTime)}`,
+    `${EMOJI.endTime} End event time: ${formatTime(state.data.endTime)}`,
     "",
-    `📍 Makeup location: ${state.data.makeup === "YES" ? safeText(state.data.makeupLocation) : "N/A"}`,
-    `📍 Outdoor photoshoot location: ${state.data.outdoor === "YES" ? safeText(state.data.outdoorLocation) : "N/A"}`,
-    `📍 Event location: ${safeText(state.data.eventLocation)}`,
+    `${EMOJI.pin} Makeup location: ${state.data.makeup === "YES" ? safeText(state.data.makeupLocation) : "N/A"}`,
+    `${EMOJI.pin} Outdoor photoshoot location: ${state.data.outdoor === "YES" ? safeText(state.data.outdoorLocation) : "N/A"}`,
+    `${EMOJI.pin} Event location: ${safeText(state.data.eventLocation)}`,
     "",
     "Pakej yang saya pilih:",
     "",
-    `🤍 ${manualOnly ? "Manual availability check" : pkg.name}`,
+    `${EMOJI.heart} ${manualOnly ? "Manual availability check" : pkg.name}`,
     pkg.price === null || manualOnly ? "Custom quotation" : formatMoney(pkg.price),
     "",
     "Add-ons:",
