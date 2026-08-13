@@ -408,6 +408,15 @@ async function checkDateAvailability() {
   }
 }
 
+async function fetchAvailabilityForSelectedDate() {
+  const response = await fetch(`/api/availability?date=${encodeURIComponent(state.data.eventDate)}`);
+  const payload = await response.json();
+  state.availability = payload;
+  saveState();
+  if (!response.ok || payload.status === "error") return "error";
+  return payload.status;
+}
+
 function validateFullQuestionnaire() {
   for (const stepId of getSteps().filter((item) => item !== "summary")) {
     state.stepId = stepId;
@@ -603,7 +612,7 @@ function renderSelectionSummary() {
   `;
 }
 
-function submitRequest() {
+async function submitRequest() {
   const transportError = document.getElementById("transport-error");
   if (!state.addons.transportAck) {
     transportError.hidden = false;
@@ -612,6 +621,29 @@ function submitRequest() {
     return;
   }
   transportError.hidden = true;
+
+  const submitButton = document.getElementById("submit-request");
+  submitButton.disabled = true;
+  submitButton.textContent = "CHECKING DATE...";
+  try {
+    const latestStatus = await fetchAvailabilityForSelectedDate();
+    if (latestStatus !== "available") {
+      submitButton.disabled = false;
+      submitButton.textContent = "SUBMIT REQUEST →";
+      renderResult(latestStatus);
+      showScreen("result-screen");
+      return;
+    }
+  } catch {
+    state.availability = { status: "error", date: state.data.eventDate };
+    saveState();
+    submitButton.disabled = false;
+    submitButton.textContent = "SUBMIT REQUEST →";
+    renderResult("error");
+    showScreen("result-screen");
+    return;
+  }
+
   const message = buildWhatsAppMessage(false);
   sessionStorage.removeItem(STORAGE_KEY);
   window.location.href = `https://wa.me/${BUSINESS_CONFIG.whatsapp}?text=${encodeURIComponent(message)}`;
@@ -661,6 +693,7 @@ function buildWhatsAppMessage(manualOnly) {
     "* Transportation Fee",
     "",
     "Saya faham transportation fee tidak termasuk dalam estimated total dan akan dikira berdasarkan lokasi majlis.",
+    "Saya faham availability masih tertakluk kepada final confirmation by Antara Akad.",
     "",
     "Boleh kita proceed untuk review request saya ya 🤍",
   ].join("\n");

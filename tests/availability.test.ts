@@ -50,6 +50,23 @@ describe("checkAvailability", () => {
     });
   });
 
+  it("marks the date available when Calendly returns no busy times", async () => {
+    vi.stubEnv("CALENDLY_ACCESS_TOKEN", "calendly-token");
+    vi.stubEnv("CALENDLY_USER_URI", "https://api.calendly.com/users/test-user");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({
+        ok: true,
+        json: async () => ({ collection: [] }),
+      })) as unknown as typeof fetch,
+    );
+
+    await expect(checkAvailability(config, "2026-12-13")).resolves.toMatchObject({
+      status: "available",
+      source: "calendly",
+    });
+  });
+
   it("fails closed when Calendly cannot confirm the date", async () => {
     vi.stubEnv("CALENDLY_ACCESS_TOKEN", "calendly-token");
     vi.stubEnv("CALENDLY_USER_URI", "https://api.calendly.com/users/test-user");

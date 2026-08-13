@@ -687,6 +687,7 @@ summary {
 .option-card,
 .addon-card,
 .transport-card,
+.disclaimer-card,
 .selection-card,
 .summary-panel {
   border: 1px solid var(--line);
@@ -909,6 +910,24 @@ summary {
 .transport-card {
   margin-top: 16px;
   background: #f6f1ea;
+}
+
+.disclaimer-card {
+  margin-top: 12px;
+  background: var(--black);
+  color: var(--paper);
+}
+
+.disclaimer-card .eyebrow {
+  color: var(--champagne);
+}
+
+.disclaimer-card h3 {
+  margin: 0;
+  font-family: var(--sans-bold);
+  font-size: 16px;
+  line-height: 1.25;
+  text-transform: uppercase;
 }
 
 .check-row {

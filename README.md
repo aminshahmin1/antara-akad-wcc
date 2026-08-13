@@ -59,6 +59,13 @@ GOOGLE_SERVICE_ACCOUNT_JSON=
 
 Business rule: any blocking calendar event on a date makes the entire date unavailable. Availability is not a reservation.
 
+The app checks availability twice:
+
+1. When the client taps `CHECK AVAILABILITY`.
+2. Again when the client taps `SUBMIT REQUEST`, immediately before the WhatsApp handoff.
+
+If the second check finds a busy Calendly date, the client sees `FULLY BOOKED` and cannot submit that package request. If Calendly cannot confirm the date, the app does not assume availability and routes the client to the manual WhatsApp check state.
+
 ## Web App Assets
 
 Static files live in:
