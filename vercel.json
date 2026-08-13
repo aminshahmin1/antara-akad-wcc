@@ -1,6 +1,6 @@
 {
   "functions": {
-    "src/server.ts": {
+    "server.ts": {
       "includeFiles": "config/business.json"
     }
   }
