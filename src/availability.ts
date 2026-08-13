@@ -84,7 +84,7 @@ async function getCalendlyUserUri(accessToken: string): Promise<string> {
 }
 
 async function hasCalendlyBusyTime(date: string): Promise<boolean | undefined> {
-  const accessToken = process.env.CALENDLY_ACCESS_TOKEN;
+  const accessToken = process.env.CALENDLY_ACCESS_TOKEN ?? process.env.CALENDLY_API_TOKEN;
   if (!accessToken) return undefined;
 
   const user = await getCalendlyUserUri(accessToken);

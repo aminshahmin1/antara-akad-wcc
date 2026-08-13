@@ -43,10 +43,11 @@ For Calendly checks, create a Calendly personal access token and set these serve
 
 ```text
 CALENDLY_ACCESS_TOKEN=
+CALENDLY_API_TOKEN=
 CALENDLY_USER_URI=
 ```
 
-`CALENDLY_USER_URI` is optional. If omitted, the server calls Calendly's `users/me` endpoint to resolve it from the token.
+Use `CALENDLY_ACCESS_TOKEN` or `CALENDLY_API_TOKEN` for the Calendly personal access token. `CALENDLY_USER_URI` is optional. If omitted, the server calls Calendly's `users/me` endpoint to resolve it from the token.
 
 Calendly Free supports regular API access, but not webhooks or paid Scheduling API endpoints. This app only reads busy times and still sends the request through WhatsApp.
 
@@ -118,10 +119,11 @@ In Vercel:
 
 ```text
 CALENDLY_ACCESS_TOKEN=your_calendly_personal_access_token
+CALENDLY_API_TOKEN=your_calendly_personal_access_token
 CALENDLY_USER_URI=optional_calendly_user_uri
 ANTARA_AKAD_BLOCKED_DATES=optional_manual_blocked_dates
 ```
 
-`CALENDLY_ACCESS_TOKEN` must stay server-side in Vercel. Do not put it in `public/`, frontend JavaScript, GitHub, or browser-visible code.
+The Calendly token must stay server-side in Vercel. Do not put it in `public/`, frontend JavaScript, GitHub, or browser-visible code.
 
 For Calendly Free, this app checks availability by reading busy times for the selected date. It does not rely on paid Calendly webhooks or paid Scheduling API endpoints.

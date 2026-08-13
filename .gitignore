@@ -7,3 +7,5 @@ coverage/
 tmp/
 
 public/assets/images/antara-akad-wedding-sheet.png
+.vercel
+.env*
