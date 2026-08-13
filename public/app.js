@@ -661,7 +661,7 @@ function buildWhatsAppMessage(manualOnly) {
     "",
     "Terima kasih sebab berminat dengan service WCC by Antara Akad.",
     "Untuk pakej dan details service, awak boleh refer pada link di bawah:",
-    `- [${BUSINESS_CONFIG.canvaLink}](${BUSINESS_CONFIG.canvaLink})`,
+    `- ${BUSINESS_CONFIG.canvaLink}`,
     "  ",
     "Ini details event saya:",
     `- Name: ${safeText(state.data.name)}`,
