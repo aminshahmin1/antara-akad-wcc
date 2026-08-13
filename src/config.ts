@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { z } from "zod";
+import defaultBusinessConfig from "../config/business.json" with { type: "json" };
 import type { BusinessConfig } from "./types.js";
 
 const packageSchema = z.object({
@@ -41,6 +42,9 @@ const configSchema = z.object({
 
 export function loadBusinessConfig(configPath = process.env.BUSINESS_CONFIG_PATH ?? "config/business.json"): BusinessConfig {
   const absolutePath = path.resolve(configPath);
+  if (!fs.existsSync(absolutePath) && configPath === "config/business.json") {
+    return configSchema.parse(defaultBusinessConfig);
+  }
   const raw = JSON.parse(fs.readFileSync(absolutePath, "utf8")) as unknown;
   return configSchema.parse(raw);
 }
