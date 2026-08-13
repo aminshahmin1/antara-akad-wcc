@@ -88,18 +88,6 @@ const BUSINESS_CONFIG = {
 
 const STORAGE_KEY = "antara-akad-booking-state";
 
-const EMOJI = {
-  heart: "\u{1F90D}",
-  link: "\u{1F517}",
-  bride: "\u{1F470}\u{1F3FB}\u{200D}\u{2640}\u{FE0F}",
-  phone: "\u{1F4F1}",
-  ring: "\u{1F48D}",
-  calendar: "\u{1F5D3}\u{FE0F}",
-  startTime: "\u{1F563}",
-  endTime: "\u{1F55C}",
-  pin: "\u{1F4CD}",
-};
-
 const EVENT_TO_PACKAGE = {
   Nikah: "nikah",
   Sanding: "sanding",
@@ -667,47 +655,34 @@ function buildWhatsAppMessage(manualOnly) {
   const paidAddons = selectionItems()
     .slice(1)
     .map((item) => `${item.name} - ${item.value}`);
-  const addons = paidAddons.length ? paidAddons.join("\n") : "N/A";
+  const addons = paidAddons.length ? paidAddons.join("\n- ") : "N/A";
   return [
-    `Hi awak! ${EMOJI.heart}`,
+    "Hi awak!",
     "",
     "Terima kasih sebab berminat dengan service WCC by Antara Akad.",
-    "",
     "Untuk pakej dan details service, awak boleh refer pada link di bawah:",
-    `${EMOJI.link} ${BUSINESS_CONFIG.canvaLink}`,
+    `- ${BUSINESS_CONFIG.canvaLink}`,
     "",
     "Ini details event saya:",
-    "",
-    `${EMOJI.bride} Name: ${safeText(state.data.name)}`,
-    `${EMOJI.phone} Phone number: ${safeText(state.data.phone)}`,
-    "",
-    `${EMOJI.ring} Event type: ${safeText(state.data.eventType)}`,
-    "",
-    `${EMOJI.calendar} Event date: ${formatDate(state.data.eventDate)}`,
-    `${EMOJI.startTime} Start event time: ${formatTime(state.data.startTime)}`,
-    `${EMOJI.endTime} End event time: ${formatTime(state.data.endTime)}`,
-    "",
-    `${EMOJI.pin} Makeup location: ${state.data.makeup === "YES" ? safeText(state.data.makeupLocation) : "N/A"}`,
-    `${EMOJI.pin} Outdoor photoshoot location: ${state.data.outdoor === "YES" ? safeText(state.data.outdoorLocation) : "N/A"}`,
-    `${EMOJI.pin} Event location: ${safeText(state.data.eventLocation)}`,
+    `- Name: ${safeText(state.data.name)}`,
+    `- Phone number: ${safeText(state.data.phone)}`,
+    `- Event type: ${safeText(state.data.eventType)}`,
+    `- Event date: ${formatDate(state.data.eventDate)}`,
+    `- Start event time: ${formatTime(state.data.startTime)}`,
+    `- End event time: ${formatTime(state.data.endTime)}`,
+    `- Makeup location: ${state.data.makeup === "YES" ? safeText(state.data.makeupLocation) : "N/A"}`,
+    `- Outdoor photoshoot location: ${state.data.outdoor === "YES" ? safeText(state.data.outdoorLocation) : "N/A"}`,
+    `- Event location: ${safeText(state.data.eventLocation)}`,
     "",
     "Pakej yang saya pilih:",
-    "",
-    `${EMOJI.heart} ${manualOnly ? "Manual availability check" : pkg.name}`,
-    pkg.price === null || manualOnly ? "Custom quotation" : formatMoney(pkg.price),
+    `- ${manualOnly ? "Manual availability check" : pkg.name}`,
+    `- ${pkg.price === null || manualOnly ? "Custom quotation" : formatMoney(pkg.price)}`,
     "",
     "Add-ons:",
-    manualOnly ? "N/A" : addons,
+    `- ${manualOnly ? "N/A" : addons}`,
     "",
     "Estimated Total:",
-    manualOnly ? "To be checked manually" : formatMoney(total),
-    "",
-    "* Transportation Fee",
-    "",
-    "Saya faham transportation fee tidak termasuk dalam estimated total dan akan dikira berdasarkan lokasi majlis.",
-    "Saya faham availability masih tertakluk kepada final confirmation by Antara Akad.",
-    "",
-    "Boleh kita proceed untuk review request saya ya 🤍",
+    `- ${manualOnly ? "To be checked manually" : formatMoney(total)} + Transportation Fee`,
   ].join("\n");
 }
 

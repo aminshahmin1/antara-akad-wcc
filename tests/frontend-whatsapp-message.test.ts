@@ -49,26 +49,26 @@ globalThis.whatsAppUrl = "https://wa.me/" + BUSINESS_CONFIG.whatsapp + "?text=" 
 }
 
 describe("frontend WhatsApp message template", () => {
-  it("uses the requested emoji template and remains URL-encodable", () => {
+  it("uses the requested bullet template and remains URL-encodable", () => {
     const message = buildFrontendMessage();
     const decoded = decodeURIComponent(
       `https://wa.me/60145959752?text=${encodeURIComponent(message)}`.split("text=")[1]!,
     );
 
     expect(decoded).toBe(message);
-    expect(message).toContain("Hi awak! 🤍");
-    expect(message).toContain("🔗 https://canva.link/b0bny2khpxyc7xx");
-    expect(message).toContain("👰🏻‍♀️ Name: Sarah");
-    expect(message).toContain("📱 Phone number: +60123456789");
-    expect(message).toContain("💍 Event type: Sanding");
-    expect(message).toContain("🗓️ Event date: 13 December 2026");
-    expect(message).toContain("🕣 Start event time: 10:30 am");
-    expect(message).toContain("🕜 End event time: 2:30 pm");
-    expect(message).toContain("📍 Makeup location: Makeup Studio");
-    expect(message).toContain("📍 Outdoor photoshoot location: N/A");
-    expect(message).toContain("📍 Event location: Dewan Melati, Shah Alam");
-    expect(message).toContain("Pakej yang saya pilih:\n\n🤍 Sanding Only\nRM240");
-    expect(message).toContain("Add-ons:\nCustomized Template - RM10\n1-Min Highlight Reel - RM50\nExtra Hour × 2 - RM120");
-    expect(message).toContain("Estimated Total:\nRM420");
+    expect(message).toContain("Hi awak!");
+    expect(message).toContain("- https://canva.link/b0bny2khpxyc7xx");
+    expect(message).toContain("- Name: Sarah");
+    expect(message).toContain("- Phone number: +60123456789");
+    expect(message).toContain("- Event type: Sanding");
+    expect(message).toContain("- Event date: 13 December 2026");
+    expect(message).toContain("- Start event time: 10:30 am");
+    expect(message).toContain("- End event time: 2:30 pm");
+    expect(message).toContain("- Makeup location: Makeup Studio");
+    expect(message).toContain("- Outdoor photoshoot location: N/A");
+    expect(message).toContain("- Event location: Dewan Melati, Shah Alam");
+    expect(message).toContain("Pakej yang saya pilih:\n- Sanding Only\n- RM240");
+    expect(message).toContain("Add-ons:\n- Customized Template - RM10\n- 1-Min Highlight Reel - RM50\n- Extra Hour × 2 - RM120");
+    expect(message).toContain("Estimated Total:\n- RM420 + Transportation Fee");
   });
 });
