@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Antara Akad | Wedding Content Creator</title>
+    <meta
+      name="description"
+      content="Antara Akad Wedding Content Creator. Check your date, choose a package, personalise add-ons, and submit your request through WhatsApp."
+    />
+    <meta name="theme-color" content="#140f0b" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Antara Akad" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta property="og:title" content="Antara Akad | Wedding Content Creator" />
+    <meta
+      property="og:description"
+      content="A premium mobile booking experience for Antara Akad Wedding Content Creator."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/images/antara-akad-wedding-sheet.png" />
+    <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script defer src="/app.js"></script>
+  </head>
+  <body>
+    <div class="phone-stage">
+      <main class="app-shell" id="app" aria-live="polite">
+        <section class="screen welcome-screen active" id="welcome-screen" aria-labelledby="welcome-title">
+          <div class="brand-lockup">
+            <span class="logo-mark" aria-hidden="true">AA</span>
+            <div>
+              <p>ANTARA AKAD</p>
+              <span>Wedding Content Creator</span>
+            </div>
+          </div>
+          <div class="editorial-hero">
+            <div class="rail" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div>
+              <p class="eyebrow">BOOK YOURS</p>
+              <h1 id="welcome-title">BOOK<br />YOURS</h1>
+              <p class="lede">Capture your moments beautifully, instantly and ready to relive.</p>
+            </div>
+          </div>
+          <div class="polaroid-stack" aria-hidden="true">
+            <figure class="polaroid one"><img src="/assets/images/antara-akad-wedding-sheet.png" alt="" /></figure>
+            <figure class="polaroid two"><img src="/assets/images/antara-akad-wedding-sheet.png" alt="" /></figure>
+          </div>
+          <div class="welcome-actions">
+            <button class="btn primary" type="button" data-action="start-flow">CHECK AVAILABILITY →</button>
+            <button class="btn ghost" type="button" data-action="skip-explore">SKIP &amp; EXPLORE</button>
+          </div>
+        </section>
+
+        <section class="screen main-experience" id="main-screen" aria-labelledby="home-title">
+          <header class="compact-header">
+            <span class="logo-mark" aria-hidden="true">AA</span>
+            <div>
+              <strong>ANTARA AKAD</strong>
+              <small>WCC EST '26</small>
+            </div>
+          </header>
+
+          <div class="scroll-page">
+            <section class="lookbook-section hero-section" id="home">
+              <div class="rail mini" aria-hidden="true"><span></span><span></span></div>
+              <p class="eyebrow">WEDDING CONTENT CREATOR</p>
+              <h2 id="home-title">BOOK<br />YOURS</h2>
+              <div class="hero-collage" aria-label="Antara Akad wedding content collage">
+                <figure class="polaroid hero-a"><img src="/assets/images/antara-akad-wedding-sheet.png" alt="Black and white Malay wedding couple portrait" /></figure>
+                <figure class="polaroid hero-b"><img src="/assets/images/antara-akad-wedding-sheet.png" alt="Black and white wedding ring moment" /></figure>
+              </div>
+              <div class="button-row">
+                <button class="btn primary" type="button" data-action="start-flow">CHECK AVAILABILITY →</button>
+                <a class="btn outline" href="#packages">VIEW PACKAGES</a>
+              </div>
+            </section>
+
+            <section class="lookbook-section about-section" id="work">
+              <p class="eyebrow">WCC</p>
+              <h2>WEDDING<br />CONTENT<br />CREATOR</h2>
+              <div class="about-card">
+                <figure class="polaroid"><img src="/assets/images/antara-akad-wedding-sheet.png" alt="Bride holding bouquet in black and white" loading="lazy" /></figure>
+                <div>
+                  <span>EST '26</span>
+                  <p>Capturing love in vertical — beautifully, instantly, and ready for TikTok/Instagram.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="lookbook-section portfolio-section" aria-labelledby="portfolio-title">
+              <p class="eyebrow">PORTFOLIO</p>
+              <h2 id="portfolio-title">SOFT<br />MOMENTS</h2>
+              <div class="snap-gallery" aria-label="Portfolio gallery">
+                <figure class="polaroid"><img src="/assets/images/antara-akad-wedding-sheet.png" alt="Wedding content sample one" loading="lazy" /></figure>
+                <figure class="polaroid"><img src="/assets/images/antara-akad-wedding-sheet.png" alt="Wedding content sample two" loading="lazy" /></figure>
+                <figure class="polaroid"><img src="/assets/images/antara-akad-wedding-sheet.png" alt="Wedding content sample three" loading="lazy" /></figure>
+              </div>
+            </section>
+
+            <section class="lookbook-section" id="packages" aria-labelledby="packages-title">
+              <p class="eyebrow">EARLY BIRD PACKAGE LIST</p>
+              <h2 id="packages-title">PACKAGES</h2>
+              <div class="package-list" id="all-package-list"></div>
+            </section>
+
+            <section class="lookbook-section addon-preview" id="book">
+              <p class="eyebrow">PERSONALISE IT</p>
+              <h2>MAKE IT<br />YOURS</h2>
+              <div class="mini-list">
+                <span>Customized Template · RM10</span>
+                <span>1-Min Highlight Reel · RM50</span>
+                <span>Extra Hour Coverage · RM60/hour</span>
+              </div>
+              <button class="btn primary" type="button" data-action="start-flow">CHECK AVAILABILITY →</button>
+            </section>
+
+            <section class="lookbook-section gear-section">
+              <p class="eyebrow">SHOOTING GEAR</p>
+              <div class="black-editorial-card">
+                <h2>IPHONE 17<br />+ DJI OSMO<br />MOBILE 7P</h2>
+                <p>Second gear: Insta360 Luna Ultra</p>
+                <ul>
+                  <li>Stabilised vertical videos</li>
+                  <li>Clear akad audio support</li>
+                  <li>Mobile-first wedding coverage</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="lookbook-section info-section" id="info">
+              <p class="eyebrow">BEFORE YOU BOOK</p>
+              <h2>TERMS</h2>
+              <div class="accordion">
+                <details>
+                  <summary>Deposit</summary>
+                  <p>50% non-refundable deposit required to reserve the date.</p>
+                </details>
+                <details>
+                  <summary>Balance</summary>
+                  <p>Full balance due 2 days before event.</p>
+                </details>
+                <details>
+                  <summary>Delivery</summary>
+                  <p>Videos/raw footage delivered through Google Drive within 7 days after event.</p>
+                </details>
+                <details>
+                  <summary>Content Use</summary>
+                  <p>Content optimized for TikTok, Instagram Story and WhatsApp sharing.</p>
+                </details>
+                <details>
+                  <summary>Transportation</summary>
+                  <p>Transportation fee excluded and calculated separately.</p>
+                </details>
+              </div>
+            </section>
+
+            <section class="lookbook-section contact-section">
+              <p class="eyebrow">CONTACT US →</p>
+              <h2>ANTARAKAD.WCC</h2>
+              <div class="social-row" aria-label="Social platforms">
+                <span>Threads</span>
+                <span>TikTok</span>
+                <span>Instagram</span>
+                <a href="https://wa.me/60145959752">WhatsApp</a>
+              </div>
+              <button class="btn primary" type="button" data-action="start-flow">FINAL CHECK AVAILABILITY →</button>
+            </section>
+          </div>
+
+          <nav class="bottom-nav" aria-label="App navigation">
+            <a href="#home">HOME</a>
+            <a href="#work">WORK</a>
+            <button type="button" data-action="start-flow">BOOK</button>
+            <a href="#info">INFO</a>
+          </nav>
+        </section>
+
+        <section class="screen flow-screen" id="flow-screen" aria-labelledby="flow-title">
+          <header class="flow-header">
+            <button class="icon-btn" type="button" data-action="flow-back" aria-label="Go back">←</button>
+            <div class="progress-shell" aria-hidden="true"><span id="progress-bar"></span></div>
+            <button class="text-btn" type="button" data-action="skip-explore">EXPLORE</button>
+          </header>
+          <div class="question-card" id="question-card"></div>
+        </section>
+
+        <section class="screen result-screen" id="result-screen" aria-live="assertive"></section>
+
+        <section class="screen package-screen" id="package-screen" aria-labelledby="package-title">
+          <header class="compact-header">
+            <button class="icon-btn" type="button" data-action="result-back" aria-label="Go back">←</button>
+            <div>
+              <strong>ANTARA AKAD</strong>
+              <small>Choose your package</small>
+            </div>
+          </header>
+          <div class="package-flow-content">
+            <p class="eyebrow">YOUR PACKAGE</p>
+            <h2 id="package-title">CHOOSE<br />YOURS</h2>
+            <div id="matched-package"></div>
+          </div>
+        </section>
+
+        <section class="screen addon-screen" id="addon-screen" aria-labelledby="addons-title">
+          <header class="compact-header">
+            <button class="icon-btn" type="button" data-action="package-back" aria-label="Go back">←</button>
+            <div>
+              <strong>ANTARA AKAD</strong>
+              <small>Personalise request</small>
+            </div>
+          </header>
+          <div class="addon-content">
+            <p class="eyebrow">PERSONALISE IT</p>
+            <h2 id="addons-title">MAKE IT<br />YOURS</h2>
+            <div id="addon-list"></div>
+            <section class="transport-card" aria-labelledby="transport-title">
+              <p class="eyebrow" id="transport-title">TRANSPORTATION FEE</p>
+              <h3>Subject to location</h3>
+              <p>Transportation charges will be calculated based on your event, makeup and outdoor photoshoot locations.</p>
+              <label class="check-row">
+                <input type="checkbox" id="transport-ack" />
+                <span>I understand that transportation fee is not included in the estimated total and will be calculated based on location.</span>
+              </label>
+              <p class="field-error" id="transport-error" hidden></p>
+            </section>
+            <section class="selection-card" id="selection-summary"></section>
+          </div>
+          <div class="sticky-cta">
+            <div>
+              <strong id="sticky-total">RM0</strong>
+              <span>Estimated Total</span>
+            </div>
+            <button class="btn primary" type="button" id="submit-request">SUBMIT REQUEST →</button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

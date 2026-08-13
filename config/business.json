@@ -1,0 +1,68 @@
+{
+  "businessName": "Antara Akad",
+  "ownerName": "Antara Akad",
+  "currency": "MYR",
+  "timezone": "Asia/Kuala_Lumpur",
+  "serviceArea": "Malaysia",
+  "greeting": "Hi awak! Thank you for reaching out to Antara Akad WCC 🤍 I can help with package estimates and common questions.",
+  "handoffMessage": "I’ll pass this to Antara Akad for a personal reply. We’ll review your request and get back to you on WhatsApp 🤍",
+  "quoteDisclaimer": "This is an estimated quotation. Availability, transportation fee, and final reservation are confirmed by Antara Akad after review.",
+  "availability": {
+    "blockedDates": ["2026-12-12"],
+    "blockingStatuses": ["confirmed"]
+  },
+  "packages": [
+    {
+      "id": "nikah",
+      "name": "Nikah Only",
+      "inquiryEventType": "Nikah",
+      "keywords": ["solemnisation", "solemnization", "nikah", "akad nikah", "rom"],
+      "includedHours": 3,
+      "basePrice": 180,
+      "extraHourPrice": 60,
+      "description": "Perfect for intimate solemnization, or any kind of small event."
+    },
+    {
+      "id": "sanding",
+      "name": "Sanding Only",
+      "inquiryEventType": "Sanding",
+      "keywords": ["reception", "bersanding", "sanding", "dinner", "banquet"],
+      "includedHours": 4,
+      "basePrice": 240,
+      "extraHourPrice": 60,
+      "description": "Perfect for reception event."
+    },
+    {
+      "id": "nikah-sanding",
+      "name": "Nikah + Sanding",
+      "inquiryEventType": "Nikah + Sanding",
+      "keywords": ["full day", "nikah and reception", "solemnisation and reception", "morning to night", "nikah + sanding"],
+      "includedHours": 6,
+      "basePrice": 360,
+      "extraHourPrice": 60,
+      "description": "Perfect for solemnization + reception event."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "What is a wedding content creator?",
+      "keywords": ["what do you do", "content creator", "photographer", "videographer", "wcc"],
+      "answer": "A wedding content creator captures vertical behind-the-scenes wedding moments for TikTok, Instagram Story, Threads, and WhatsApp sharing. This complements your official photographer and videographer."
+    },
+    {
+      "question": "When will we receive the content?",
+      "keywords": ["delivery", "receive", "turnaround", "how long", "ready", "google drive"],
+      "answer": "Raw footage is delivered through Google Drive within 7 days after the event."
+    },
+    {
+      "question": "Is transportation included?",
+      "keywords": ["travel", "transport", "transportation", "parking", "toll", "location"],
+      "answer": "Transportation fee is excluded from the estimated total and will be calculated separately based on your event, makeup, and outdoor photoshoot locations."
+    },
+    {
+      "question": "How do we secure the date?",
+      "keywords": ["book", "booking", "secure", "deposit", "date", "reserve"],
+      "answer": "A 50% non-refundable deposit is required to reserve the date. Full balance is due 2 days before the event."
+    }
+  ]
+}
