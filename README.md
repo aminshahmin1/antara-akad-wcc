@@ -93,3 +93,28 @@ https://wa.me/60145959752
 ```
 
 The multiline message is generated in JavaScript and encoded with `encodeURIComponent`.
+
+## GitHub, Vercel, and Calendly Setup
+
+Create a new GitHub repository, for example `antara-akad-wcc`, then push this local `main` branch:
+
+```powershell
+git remote add origin https://github.com/YOUR_USERNAME/antara-akad-wcc.git
+git push -u origin main
+```
+
+In Vercel:
+
+1. Import the GitHub repository.
+2. Keep the default static/public deployment behavior.
+3. Add these Environment Variables in Production:
+
+```text
+CALENDLY_ACCESS_TOKEN=your_calendly_personal_access_token
+CALENDLY_USER_URI=optional_calendly_user_uri
+ANTARA_AKAD_BLOCKED_DATES=optional_manual_blocked_dates
+```
+
+`CALENDLY_ACCESS_TOKEN` must stay server-side in Vercel. Do not put it in `public/`, frontend JavaScript, GitHub, or browser-visible code.
+
+For Calendly Free, this app checks availability by reading busy times for the selected date. It does not rely on paid Calendly webhooks or paid Scheduling API endpoints.
