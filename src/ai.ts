@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import { OpenAI } from "openai";
 import type { BusinessConfig } from "./types.js";
 
 export interface KnowledgeAnswerer {
