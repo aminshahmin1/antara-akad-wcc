@@ -67,6 +67,19 @@ The app checks availability twice:
 
 If the second check finds a busy Calendly date, the client sees `FULLY BOOKED` and cannot submit that package request. If Calendly cannot confirm the date, the app does not assume availability and routes the client to the manual WhatsApp check state.
 
+### Calendly + Google Calendar Checklist
+
+For a Google Calendar booking to block the Antara Akad web app through Calendly:
+
+1. The Calendly personal access token must belong to the same Calendly user connected to the booking calendar.
+2. In Calendly, open `Availability` -> `Calendar settings`.
+3. Confirm Google Calendar is connected.
+4. Under `Check for conflicts`, select the exact Google calendar that contains wedding bookings.
+5. In Google Calendar, make sure each booked wedding event is marked `Busy`, not `Free`.
+6. If a date must be blocked immediately, add it to `ANTARA_AKAD_BLOCKED_DATES` in Vercel as a comma-separated ISO date, for example `2026-08-28,2026-12-12`.
+
+The manual blocked-date list is checked before Calendly. Use it as the operational override for confirmed bookings if Calendly sync is delayed or a Google event is not being reported as busy.
+
 ## Web App Assets
 
 Static files live in:
