@@ -1,10 +1,10 @@
 {
   "functions": {
     "server.ts": {
-      "includeFiles": "config/business.json,public/**"
+      "includeFiles": ["config/business.json", "public/**"]
     },
     "api/*.ts": {
-      "includeFiles": "config/business.json"
+      "includeFiles": ["config/business.json"]
     }
   }
 }
