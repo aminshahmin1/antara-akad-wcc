@@ -3,7 +3,7 @@ import type { Express, Request, Response, NextFunction } from "express";
 import express from "express";
 import { z } from "zod";
 
-const SESSION_COOKIE = "antara_dashboard_session";
+export const DASHBOARD_SESSION_COOKIE = "antara_dashboard_session";
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 8;
 const HASH_ITERATIONS = 120_000;
 const HASH_BYTES = 32;
@@ -62,7 +62,7 @@ export function registerDashboardRoutes(app: Express) {
       return;
     }
 
-    response.cookie(SESSION_COOKIE, createDashboardSession(username), {
+    response.cookie(DASHBOARD_SESSION_COOKIE, createDashboardSession(username), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -73,7 +73,7 @@ export function registerDashboardRoutes(app: Express) {
   });
 
   app.post("/dashboard/logout", requireDashboardAuth, (_request, response) => {
-    response.clearCookie(SESSION_COOKIE, { path: "/" });
+    response.clearCookie(DASHBOARD_SESSION_COOKIE, { path: "/" });
     response.redirect(303, "/dashboard");
   });
 
@@ -94,7 +94,7 @@ export function registerDashboardRoutes(app: Express) {
 
     const pdf = generateInvoicePdf(parsed.data);
     response.setHeader("Content-Type", "application/pdf");
-    response.setHeader("Content-Disposition", `inline; filename="${safeFilename(parsed.data.invoiceNumber)}.pdf"`);
+    response.setHeader("Content-Disposition", `inline; filename="${safeInvoiceFilename(parsed.data.invoiceNumber)}.pdf"`);
     response.setHeader("Cache-Control", "no-store");
     response.send(pdf);
   });
@@ -135,6 +135,10 @@ export function verifyDashboardSession(token: string | undefined, now = Date.now
   } catch {
     return false;
   }
+}
+
+export function parseInvoiceInput(input: unknown) {
+  return invoiceSchema.safeParse(input);
 }
 
 export function generateInvoicePdf(input: InvoiceInput) {
@@ -225,7 +229,7 @@ function isDashboardConfigured(env: EnvLike = process.env) {
 }
 
 function isAuthenticated(request: Request) {
-  return verifyDashboardSession(readCookie(request, SESSION_COOKIE));
+  return verifyDashboardSession(readCookie(request, DASHBOARD_SESSION_COOKIE));
 }
 
 function readCookie(request: Request, name: string) {
@@ -259,7 +263,7 @@ function safeEqual(left: string, right: string) {
   return crypto.timingSafeEqual(leftBuffer, rightBuffer);
 }
 
-function safeFilename(value: string) {
+export function safeInvoiceFilename(value: string) {
   return value.replace(/[^a-z0-9-]+/gi, "-").replace(/^-+|-+$/g, "").slice(0, 80) || "antara-akad-invoice";
 }
 
