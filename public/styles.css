@@ -25,7 +25,9 @@ html {
 
 body {
   margin: 0;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background:
     radial-gradient(circle at 50% 0, rgba(196, 167, 112, 0.14), transparent 34rem),
     var(--outer);
@@ -56,9 +58,11 @@ summary:focus-visible {
 }
 
 .phone-stage {
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   justify-content: center;
+  overflow: hidden;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
@@ -68,7 +72,9 @@ summary:focus-visible {
 .app-shell {
   width: 100%;
   max-width: 430px;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
   position: relative;
   overflow: hidden;
   background: var(--paper);
@@ -77,7 +83,7 @@ summary:focus-visible {
 
 .screen {
   display: none;
-  min-height: 100vh;
+  min-height: 100%;
   opacity: 0;
   transform: translateX(12px);
 }
@@ -106,9 +112,16 @@ summary:focus-visible {
 }
 
 .welcome-screen {
+  height: 100%;
   background:
     linear-gradient(90deg, transparent 0 14px, var(--black) 14px 52px, transparent 52px),
     var(--paper);
+  overflow: hidden;
+}
+
+.welcome-screen.active {
+  display: flex;
+  flex-direction: column;
 }
 
 .brand-lockup,
@@ -122,6 +135,7 @@ summary:focus-visible {
 
 .brand-lockup {
   margin-left: 46px;
+  flex: 0 0 auto;
 }
 
 .brand-lockup p,
@@ -157,13 +171,14 @@ summary:focus-visible {
   display: grid;
   grid-template-columns: 32px 1fr;
   gap: 10px;
-  margin-top: 54px;
+  margin-top: clamp(14px, 5dvh, 44px);
   align-items: start;
+  flex: 0 0 auto;
 }
 
 .rail {
   width: 30px;
-  min-height: 192px;
+  min-height: clamp(136px, 24dvh, 192px);
   background: var(--black);
   border-radius: 999px;
   display: flex;
@@ -214,7 +229,7 @@ h2 {
 }
 
 h1 {
-  font-size: clamp(52px, 17vw, 68px);
+  font-size: clamp(48px, 8dvh, 68px);
   line-height: 0.88;
 }
 
@@ -224,7 +239,7 @@ h2 {
 
 .lede {
   max-width: 210px;
-  margin: 20px 0 0;
+  margin: clamp(10px, 2dvh, 18px) 0 0;
   font-size: 16px;
   line-height: 1.35;
   color: var(--ink-soft);
@@ -232,8 +247,9 @@ h2 {
 
 .polaroid-stack {
   position: relative;
-  height: 260px;
-  margin: 10px 0 26px 34px;
+  height: clamp(142px, 31dvh, 260px);
+  margin: clamp(6px, 2dvh, 12px) 0 clamp(12px, 3dvh, 24px) 34px;
+  flex: 0 1 auto;
 }
 
 .polaroid {
@@ -255,7 +271,7 @@ h2 {
 
 .polaroid.one {
   position: absolute;
-  width: min(46vw, 170px);
+  width: min(46vw, clamp(118px, 27dvh, 170px));
   aspect-ratio: 184 / 244;
   height: auto;
   left: 12px;
@@ -265,7 +281,7 @@ h2 {
 
 .polaroid.two {
   position: absolute;
-  width: min(34vw, 128px);
+  width: min(34vw, clamp(90px, 21dvh, 128px));
   aspect-ratio: 154 / 214;
   height: auto;
   right: 8px;
@@ -285,6 +301,11 @@ h2 {
 .button-row {
   display: grid;
   gap: 10px;
+}
+
+.welcome-actions {
+  flex: 0 0 auto;
+  margin-top: auto;
 }
 
 .button-row {
@@ -340,6 +361,7 @@ h2 {
 
 .scroll-page {
   height: calc(100vh - 64px);
+  height: calc(100dvh - 64px);
   overflow-y: auto;
   padding-bottom: 92px;
 }
