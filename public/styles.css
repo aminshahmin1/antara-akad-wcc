@@ -957,19 +957,25 @@ summary {
   font-family: var(--sans-bold);
 }
 
-.transport-card {
+.transport-card,
+.disclaimer-card {
   margin-top: 16px;
   background: #f6f1ea;
 }
 
 .disclaimer-card {
   margin-top: 12px;
-  background: var(--black);
-  color: var(--paper);
 }
 
 .disclaimer-card .eyebrow {
   color: var(--champagne);
+}
+
+.disclaimer-card p:not(.eyebrow):not(.field-error) {
+  margin: 14px 0 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.35;
 }
 
 .disclaimer-card h3 {

@@ -132,6 +132,7 @@ function defaultState() {
       highlight: false,
       extraHours: 0,
       transportAck: false,
+      confirmationAck: false,
     },
     availability: null,
   };
@@ -140,7 +141,15 @@ function defaultState() {
 function loadState() {
   try {
     const saved = sessionStorage.getItem(STORAGE_KEY);
-    return saved ? { ...defaultState(), ...JSON.parse(saved) } : defaultState();
+    if (!saved) return defaultState();
+    const parsed = JSON.parse(saved);
+    const defaults = defaultState();
+    return {
+      ...defaults,
+      ...parsed,
+      data: { ...defaults.data, ...parsed.data },
+      addons: { ...defaults.addons, ...parsed.addons },
+    };
   } catch {
     return defaultState();
   }
@@ -530,6 +539,7 @@ function renderAddons() {
   }
   document.getElementById("addon-list").innerHTML = rows.join("");
   document.getElementById("transport-ack").checked = state.addons.transportAck;
+  document.getElementById("confirmation-ack").checked = state.addons.confirmationAck;
   renderSelectionSummary();
   showScreen("addon-screen");
 }
@@ -614,13 +624,29 @@ function renderSelectionSummary() {
 
 async function submitRequest() {
   const transportError = document.getElementById("transport-error");
+  const confirmationError = document.getElementById("confirmation-error");
+  let firstMissingAck = null;
+
   if (!state.addons.transportAck) {
     transportError.hidden = false;
     transportError.textContent = "Please acknowledge the transportation fee before submitting.";
-    document.getElementById("transport-ack").focus();
+    firstMissingAck = firstMissingAck ?? document.getElementById("transport-ack");
+  } else {
+    transportError.hidden = true;
+  }
+
+  if (!state.addons.confirmationAck) {
+    confirmationError.hidden = false;
+    confirmationError.textContent = "Please agree that availability is still subject to final confirmation.";
+    firstMissingAck = firstMissingAck ?? document.getElementById("confirmation-ack");
+  } else {
+    confirmationError.hidden = true;
+  }
+
+  if (firstMissingAck) {
+    firstMissingAck.focus();
     return;
   }
-  transportError.hidden = true;
 
   const submitButton = document.getElementById("submit-request");
   submitButton.disabled = true;
@@ -791,6 +817,10 @@ document.addEventListener("change", (event) => {
     state.addons.transportAck = event.target.checked;
     saveState();
     renderSelectionSummary();
+  }
+  if (event.target.id === "confirmation-ack") {
+    state.addons.confirmationAck = event.target.checked;
+    saveState();
   }
 });
 
