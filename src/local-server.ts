@@ -5,6 +5,7 @@ import { OpenAiKnowledgeAnswerer } from "./ai.js";
 import { WeddingContentAgent } from "./agent.js";
 import { checkAvailability } from "./availability.js";
 import { loadBusinessConfig } from "./config.js";
+import { registerDashboardRoutes } from "./dashboard.js";
 import { SqliteSessionStore } from "./store.js";
 import { extractTextMessages, isValidMetaSignature, sendWhatsAppText } from "./whatsapp.js";
 
@@ -38,6 +39,7 @@ app.get("/health", (_request, response) => {
   response.json({ ok: true, business: config.businessName, aiEnabled: Boolean(answerer) });
 });
 
+registerDashboardRoutes(app);
 app.use(express.static("public", { extensions: ["html"], maxAge: process.env.NODE_ENV === "production" ? "1h" : 0 }));
 
 app.get("/api/availability", async (request, response) => {

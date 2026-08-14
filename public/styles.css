@@ -1088,6 +1088,31 @@ details.is-closing .accordion-panel {
   padding: 26px 0 120px;
 }
 
+.addon-screen.active {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.addon-screen .flow-header {
+  flex: 0 0 auto;
+}
+
+.addon-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  padding-bottom: calc(170px + env(safe-area-inset-bottom));
+  scrollbar-width: thin;
+}
+
+.addon-screen .sticky-cta {
+  bottom: calc(18px + env(safe-area-inset-bottom));
+}
+
 .addon-card {
   display: grid;
   grid-template-columns: 1fr auto;

@@ -2,10 +2,12 @@ import express, { type Request } from "express";
 import path from "node:path";
 import { checkAvailability } from "./src/availability.js";
 import { loadBusinessConfig } from "./src/config.js";
+import { registerDashboardRoutes } from "./src/dashboard.js";
 
 const app = express();
 
 app.use(express.json({ limit: "1mb" }));
+registerDashboardRoutes(app);
 app.use(express.static("public", { extensions: ["html"], maxAge: "1h" }));
 
 app.get("/", (_request, response) => {
