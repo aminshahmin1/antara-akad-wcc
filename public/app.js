@@ -728,6 +728,74 @@ function escapeHtml(value) {
   })[char]);
 }
 
+function setupAccordionAnimations() {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll(".accordion").forEach((accordion) => {
+    accordion.querySelectorAll("details").forEach((details) => {
+      const summary = details.querySelector("summary");
+      if (!summary) return;
+
+      summary.addEventListener("click", (event) => {
+        event.preventDefault();
+        const shouldOpen = !details.open;
+        const openDetails = accordion.querySelector("details[open]");
+
+        if (openDetails && openDetails !== details) {
+          animateAccordionItem(openDetails, false, reduceMotion);
+        }
+
+        animateAccordionItem(details, shouldOpen, reduceMotion);
+      });
+    });
+  });
+}
+
+function animateAccordionItem(details, shouldOpen, reduceMotion) {
+  if (details.dataset.animating === "true") return;
+
+  const summary = details.querySelector("summary");
+  if (!summary || details.open === shouldOpen) return;
+
+  if (reduceMotion || typeof details.animate !== "function") {
+    details.open = shouldOpen;
+    return;
+  }
+
+  details.dataset.animating = "true";
+  details.style.overflow = "hidden";
+
+  const startHeight = `${details.offsetHeight}px`;
+  details.classList.toggle("is-opening", shouldOpen);
+  details.classList.toggle("is-closing", !shouldOpen);
+
+  let endHeight;
+  if (shouldOpen) {
+    details.open = true;
+    endHeight = `${details.scrollHeight}px`;
+  } else {
+    const style = getComputedStyle(details);
+    const collapsedHeight = summary.offsetHeight + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+    endHeight = `${collapsedHeight}px`;
+  }
+
+  details.style.height = startHeight;
+  const animation = details.animate({ height: [startHeight, endHeight] }, {
+    duration: shouldOpen ? 260 : 210,
+    easing: shouldOpen ? "cubic-bezier(0.22, 1, 0.36, 1)" : "ease",
+  });
+
+  animation.onfinish = () => {
+    details.open = shouldOpen;
+    details.style.height = "";
+    details.style.overflow = "";
+    details.classList.remove("is-opening", "is-closing");
+    delete details.dataset.animating;
+  };
+
+  animation.oncancel = animation.onfinish;
+}
+
 document.addEventListener("click", (event) => {
   const target = event.target.closest("button, a");
   if (!target) return;
@@ -827,4 +895,5 @@ document.addEventListener("change", (event) => {
 document.getElementById("submit-request").addEventListener("click", submitRequest);
 
 renderAllPackages();
+setupAccordionAnimations();
 showScreen("welcome-screen");
