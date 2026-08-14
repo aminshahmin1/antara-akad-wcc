@@ -715,7 +715,12 @@ summary {
   color: var(--champagne);
 }
 
-.question-card h2,
+.question-card h2 {
+  font-size: clamp(32px, 10vw, 44px);
+  line-height: 0.95;
+  margin-bottom: 18px;
+}
+
 .result-screen h2,
 .package-flow-content h2,
 .addon-content h2 {
