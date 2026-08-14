@@ -597,8 +597,17 @@ details p {
 }
 
 .contact-section h2 {
-  font-size: clamp(30px, 9vw, 42px);
+  display: grid;
+  max-width: 100%;
+  font-size: clamp(34px, 15vw, 64px);
   line-height: 0.92;
+  overflow: hidden;
+}
+
+.contact-section h2 span {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .accordion {
