@@ -162,6 +162,9 @@ function saveState() {
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach((screen) => screen.classList.remove("active"));
   document.getElementById(id)?.classList.add("active");
+  if (id === "main-screen") {
+    requestAnimationFrame(revealVisibleSections);
+  }
 }
 
 function todayIso() {
@@ -796,6 +799,44 @@ function animateAccordionItem(details, shouldOpen, reduceMotion) {
   animation.oncancel = animation.onfinish;
 }
 
+function setupScrollReveals() {
+  const sections = [...document.querySelectorAll(".lookbook-section")];
+  if (!sections.length) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion || typeof IntersectionObserver !== "function") {
+    sections.forEach((section) => section.classList.add("is-visible"));
+    return;
+  }
+
+  sections.forEach((section) => section.classList.add("revealable"));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, {
+    root: document.querySelector(".scroll-page"),
+    threshold: 0.16,
+    rootMargin: "0px 0px -10% 0px",
+  });
+
+  sections.forEach((section) => observer.observe(section));
+}
+
+function revealVisibleSections() {
+  const shell = document.querySelector(".app-shell")?.getBoundingClientRect();
+  if (!shell) return;
+
+  document.querySelectorAll(".lookbook-section.revealable:not(.is-visible)").forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top < shell.bottom && rect.bottom > shell.top) {
+      section.classList.add("is-visible");
+    }
+  });
+}
+
 document.addEventListener("click", (event) => {
   const target = event.target.closest("button, a");
   if (!target) return;
@@ -896,4 +937,5 @@ document.getElementById("submit-request").addEventListener("click", submitReques
 
 renderAllPackages();
 setupAccordionAnimations();
+setupScrollReveals();
 showScreen("welcome-screen");

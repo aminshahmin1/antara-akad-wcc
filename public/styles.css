@@ -13,6 +13,8 @@
   --serif: Didot, "Bodoni 72", "Bodoni MT", "Times New Roman", serif;
   --sans-bold: "Arial Black", "Helvetica Neue", Arial, sans-serif;
   --sans: "Helvetica Neue", Arial, sans-serif;
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-press: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 * {
@@ -86,18 +88,25 @@ summary:focus-visible {
   display: none;
   min-height: 100%;
   opacity: 0;
-  transform: translateX(12px);
+  transform: translate3d(10px, 0, 0);
 }
 
 .screen.active {
   display: block;
-  animation: screenIn 260ms ease forwards;
+  animation: screenIn 320ms var(--ease-editorial) forwards;
 }
 
 @keyframes screenIn {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translate3d(10px, 0, 0);
+  }
+
   to {
     opacity: 1;
-    transform: translateX(0);
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -123,6 +132,18 @@ summary:focus-visible {
 .welcome-screen.active {
   display: flex;
   flex-direction: column;
+}
+
+.welcome-screen.active .brand-lockup {
+  animation: editorialRise 420ms var(--ease-editorial) 80ms both;
+}
+
+.welcome-screen.active .editorial-hero {
+  animation: editorialRise 520ms var(--ease-editorial) 140ms both;
+}
+
+.welcome-screen.active .welcome-actions {
+  animation: editorialRise 460ms var(--ease-editorial) 240ms both;
 }
 
 .brand-lockup,
@@ -166,6 +187,12 @@ summary:focus-visible {
   font-family: var(--serif);
   font-size: 13px;
   font-weight: 700;
+  transition: transform 180ms var(--ease-press), background 180ms ease, color 180ms ease;
+}
+
+.brand-lockup .logo-mark,
+.compact-header .logo-mark {
+  animation: logoSettle 520ms var(--ease-editorial) both;
 }
 
 .editorial-hero {
@@ -194,6 +221,15 @@ summary:focus-visible {
   height: 10px;
   border-radius: 50%;
   background: var(--paper);
+  animation: railDotIn 520ms var(--ease-editorial) both;
+}
+
+.rail span:nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.rail span:nth-child(3) {
+  animation-delay: 180ms;
 }
 
 .rail.mini {
@@ -262,6 +298,8 @@ h2 {
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16);
   overflow: hidden;
+  transform: rotate(var(--rotation, 0deg));
+  transition: transform 260ms var(--ease-editorial), box-shadow 260ms ease, filter 260ms ease;
 }
 
 .polaroid img {
@@ -273,23 +311,25 @@ h2 {
 }
 
 .polaroid.one {
+  --rotation: -3deg;
   position: absolute;
   width: min(46vw, clamp(118px, 27dvh, 170px));
   aspect-ratio: 184 / 244;
   height: auto;
   left: 12px;
   top: 8px;
-  transform: rotate(-3deg);
+  animation: polaroidSettle 560ms var(--ease-editorial) 160ms both;
 }
 
 .polaroid.two {
+  --rotation: 3deg;
   position: absolute;
   width: min(34vw, clamp(90px, 21dvh, 128px));
   aspect-ratio: 154 / 214;
   height: auto;
   right: 8px;
   top: 36px;
-  transform: rotate(3deg);
+  animation: polaroidSettle 560ms var(--ease-editorial) 260ms both;
 }
 
 .polaroid:active,
@@ -297,7 +337,12 @@ h2 {
 .package-card:active,
 .addon-card:active,
 .btn:active {
-  transform: scale(0.98);
+  transform: rotate(var(--rotation, 0deg)) translateY(1px) scale(0.985);
+}
+
+.polaroid:hover {
+  box-shadow: 0 20px 34px rgba(0, 0, 0, 0.18);
+  transform: rotate(var(--rotation, 0deg)) translateY(-2px);
 }
 
 .welcome-actions,
@@ -329,12 +374,19 @@ h2 {
   font-size: 12px;
   color: var(--black);
   cursor: pointer;
-  transition: transform 120ms ease, opacity 120ms ease, background 120ms ease;
+  transition:
+    transform 150ms var(--ease-press),
+    opacity 150ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .btn.primary {
   background: var(--black);
   color: var(--paper);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
 }
 
 .btn.ghost,
@@ -346,6 +398,15 @@ h2 {
 .btn:disabled {
   opacity: 0.48;
   cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.btn:not(:disabled):active {
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }
 
 .main-experience {
@@ -382,6 +443,15 @@ h2 {
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+.lookbook-section.revealable {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+}
+
+.lookbook-section.revealable.is-visible {
+  animation: sectionReveal 560ms var(--ease-editorial) both;
+}
+
 .hero-section {
   min-height: 720px;
   padding-top: 48px;
@@ -406,18 +476,20 @@ h2 {
 }
 
 .hero-a {
+  --rotation: -2.5deg;
   width: min(210px, 58%);
   height: 292px;
-  transform: rotate(-2.5deg);
+  animation: polaroidSettle 560ms var(--ease-editorial) 120ms both;
 }
 
 .hero-b {
+  --rotation: 3deg;
   width: min(156px, 44%);
   height: 224px;
   position: absolute;
   right: 8px;
   bottom: 2px;
-  transform: rotate(3deg);
+  animation: polaroidSettle 560ms var(--ease-editorial) 220ms both;
 }
 
 .about-section h2 {
@@ -433,8 +505,8 @@ h2 {
 }
 
 .about-card .polaroid {
+  --rotation: -2deg;
   height: 216px;
-  transform: rotate(-2deg);
 }
 
 .about-card span {
@@ -489,6 +561,12 @@ details p {
   text-align: left;
   cursor: pointer;
   isolation: isolate;
+  transition: transform 220ms var(--ease-press), box-shadow 220ms ease, filter 220ms ease;
+}
+
+.package-card:hover {
+  box-shadow: 0 20px 38px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
 .package-card::after {
@@ -582,6 +660,16 @@ details p {
   text-decoration: none;
   font-family: var(--sans-bold);
   font-size: 12px;
+  transition: transform 160ms var(--ease-press), background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.mini-list span:hover,
+.social-row span:hover,
+.social-row a:hover {
+  background: var(--black);
+  border-color: var(--black);
+  color: var(--paper);
+  transform: translateY(-1px);
 }
 
 .black-editorial-card {
@@ -734,11 +822,19 @@ details.is-closing .accordion-panel {
   place-items: center;
   font-family: var(--sans-bold);
   font-size: 10px;
+  transition: transform 160ms var(--ease-press), background 180ms ease, color 180ms ease;
 }
 
 .bottom-nav button {
   background: var(--paper);
   color: var(--black);
+}
+
+.bottom-nav a:active,
+.bottom-nav button:active,
+.icon-btn:active,
+.text-btn:active {
+  transform: scale(0.96);
 }
 
 .flow-header {
@@ -754,6 +850,7 @@ details.is-closing .accordion-panel {
   background: var(--paper);
   color: var(--black);
   cursor: pointer;
+  transition: transform 160ms var(--ease-press), background 180ms ease, color 180ms ease, border-color 180ms ease;
 }
 
 .text-btn {
@@ -776,7 +873,7 @@ details.is-closing .accordion-panel {
   width: 0;
   background: var(--black);
   border-radius: inherit;
-  transition: width 220ms ease;
+  transition: width 320ms var(--ease-editorial);
 }
 
 .question-card {
@@ -784,6 +881,22 @@ details.is-closing .accordion-panel {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.question-card > * {
+  animation: questionItemIn 300ms var(--ease-editorial) both;
+}
+
+.question-card > *:nth-child(2) {
+  animation-delay: 40ms;
+}
+
+.question-card > *:nth-child(3) {
+  animation-delay: 90ms;
+}
+
+.question-card > *:nth-child(4) {
+  animation-delay: 130ms;
 }
 
 .step-count {
@@ -830,11 +943,13 @@ details.is-closing .accordion-panel {
   text-align: left;
   font-family: var(--sans-bold);
   cursor: pointer;
+  transition: transform 170ms var(--ease-press), background 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .option-card.selected {
   background: var(--black);
   color: var(--paper);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
 }
 
 .option-card.selected::after {
@@ -863,6 +978,14 @@ details.is-closing .accordion-panel {
   padding: 12px 14px;
   background: #fff;
   color: var(--black);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms var(--ease-press);
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--black);
+  box-shadow: 0 0 0 4px rgba(196, 167, 112, 0.16);
+  transform: translateY(-1px);
 }
 
 .field textarea {
@@ -925,6 +1048,7 @@ details.is-closing .accordion-panel {
 
 .result-inner {
   margin-left: 56px;
+  animation: resultReveal 460ms var(--ease-editorial) both;
 }
 
 .result-date {
@@ -949,7 +1073,7 @@ details.is-closing .accordion-panel {
   border-radius: 50%;
   border: 2px solid rgba(0, 0, 0, 0.14);
   border-top-color: var(--black);
-  animation: spin 900ms linear infinite;
+  animation: spin 900ms linear infinite, loaderPulse 1800ms ease-in-out infinite;
   margin-bottom: 18px;
 }
 
@@ -969,6 +1093,13 @@ details.is-closing .accordion-panel {
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 12px;
+  transition: transform 170ms var(--ease-press), box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.addon-card:hover {
+  border-color: rgba(0, 0, 0, 0.28);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
 }
 
 .addon-card h3,
@@ -994,11 +1125,13 @@ details.is-closing .accordion-panel {
   background: #f4f0ea;
   font-family: var(--sans-bold);
   font-size: 10px;
+  transition: transform 160ms var(--ease-press), background 180ms ease, color 180ms ease, border-color 180ms ease;
 }
 
 .toggle.selected {
   background: var(--black);
   color: var(--paper);
+  animation: selectedPop 220ms var(--ease-editorial) both;
 }
 
 .included-pill {
@@ -1027,6 +1160,11 @@ details.is-closing .accordion-panel {
   background: var(--black);
   color: var(--paper);
   font-size: 18px;
+  transition: transform 150ms var(--ease-press), background 180ms ease;
+}
+
+.stepper button:active {
+  transform: scale(0.92);
 }
 
 .stepper output {
@@ -1077,6 +1215,11 @@ details.is-closing .accordion-panel {
   width: 22px;
   height: 22px;
   accent-color: var(--black);
+  transition: transform 150ms var(--ease-press);
+}
+
+.check-row input:checked {
+  transform: scale(1.05);
 }
 
 .selection-card {
@@ -1114,6 +1257,10 @@ details.is-closing .accordion-panel {
   box-shadow: 0 -16px 30px rgba(0, 0, 0, 0.08);
 }
 
+.addon-screen.active .sticky-cta {
+  animation: stickyCtaIn 340ms var(--ease-editorial) both;
+}
+
 .sticky-cta strong,
 .sticky-cta span {
   display: block;
@@ -1127,6 +1274,129 @@ details.is-closing .accordion-panel {
 .sticky-cta span {
   font-size: 11px;
   color: var(--ink-soft);
+}
+
+.package-card:active,
+.addon-card:active,
+.option-card:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.btn:not(:disabled):active {
+  transform: translateY(1px) scale(0.985);
+}
+
+@keyframes editorialRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes sectionReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes logoSettle {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes railDotIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes polaroidSettle {
+  from {
+    opacity: 0;
+    transform: rotate(var(--rotation, 0deg)) translate3d(0, 12px, 0) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(var(--rotation, 0deg)) translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes questionItemIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes resultReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes loaderPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(196, 167, 112, 0.26);
+  }
+
+  50% {
+    box-shadow: 0 0 0 10px rgba(196, 167, 112, 0);
+  }
+}
+
+@keyframes selectedPop {
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes stickyCtaIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @media (min-width: 481px) {
@@ -1163,6 +1433,11 @@ details.is-closing .accordion-panel {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .lookbook-section.revealable {
+    opacity: 1;
+    transform: none;
+  }
+
   *,
   *::before,
   *::after {
